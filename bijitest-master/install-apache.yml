@@ -1,0 +1,19 @@
+remote_user: vagrant
+  vars:
+    - pack: ['httpd','openssl']
+
+
+  tasks:
+    - name: install packages:
+      yum:
+        name: "{{ item }}"
+        state: "latest"
+      with_items:
+        - "{{ pack }}"
+      tags: partial
+
+    - name: complete package install
+      yum:
+        name: '*'
+        state: "latest"
+      tags: complete
